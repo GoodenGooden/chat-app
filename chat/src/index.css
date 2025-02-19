@@ -1,0 +1,151 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  /* background-color: rgba(7, 55, 63, 1);  
+   background-image: linear-gradient();    */
+  background-color: gray ;   
+   background-size: cover;
+   height: 100vh;
+   overflow: hidden;
+   position: relative;
+ }
+
+ .main_container {
+    margin: auto;
+    width: 70%;
+    height: 80%;
+    position: relative;
+    top: 0;
+   border-radius: 1rem;
+   border-color: rgba(102, 101, 101, 0.726);
+    border-width: thick;
+    border-style: solid;
+   /*box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);   */
+  
+   
+   
+ }
+
+ .main_contain1 {
+  
+  margin: auto;
+  width: 70%;
+  height: 50%;
+  position: relative;
+ top: 10%;
+ border-radius: 1rem;
+ border-color: rgba(102, 101, 101, 0.726);
+  border-width: thick;
+  border-style: solid;
+  background-color: gray;
+  display: grid;
+ }
+
+ 
+
+ .main_contain2 {
+  
+  margin: auto;
+  width: 90%;
+  height: 10%;
+  position: relative;
+ top: 20%;
+ left: 5%;
+ border-color: rgba(102, 101, 101, 0.726);
+  border-width: thick;
+  border-style: solid;
+  outline: none;
+  
+ }
+
+.lang-detect {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  
+  
+}
+
+.lang-input {
+  
+  width: 12rem;
+  outline: none;
+
+}
+
+.container-grid {
+  position: relative;
+  top: 20%;
+  
+display: flex;
+justify-content: space-around;
+
+}
+
+
+
+.Summarize {
+  padding: .5rem 4rem;
+  
+}
+
+
+.Summarize1 {
+  padding: .1rem 4rem;
+  background-color: azure;
+  fill: black;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 800px) { 
+
+  .container-grid {
+    display: flex;
+    flex-direction: column-reverse;
+    align-content: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 800px) { 
+  .main_contain1 {
+    width: 60% !important;
+    height: 40% !important;
+  }
+
+}
+
+
+
+@media (max-width: 1200px) { 
+  
+  .main_contain1 {
+    width: 35rem;
+  }
+  
+  }
+  
+
+@media (max-width: 2584px) { 
+  .main_contain1 {
+    font-size: larger;
+  }
+
+}
+
+

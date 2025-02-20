@@ -69,7 +69,7 @@
   border-width: thick;
   border-style: solid;
   outline: none;
-  
+  border-radius: 2rem;
  }
 
 .lang-detect {
@@ -85,6 +85,7 @@
   
   width: 12rem;
   outline: none;
+  border-radius: 2rem;
 
 }
 
@@ -101,6 +102,15 @@ justify-content: space-around;
 
 .Summarize {
   padding: .5rem 4rem;
+  border-radius: 2rem;
+  outline: none;
+  
+}
+
+.Summarize2 {
+  padding: .5rem 4rem;
+  border-radius: 2rem;
+  outline: none;
   
 }
 
@@ -110,23 +120,63 @@ justify-content: space-around;
   background-color: azure;
   fill: black;
   font-size: 1.5rem;
+  border-radius: 2rem;
 }
+
+
+
+
+
 
 @media (max-width: 800px) { 
 
   .container-grid {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column ;
     align-content: center;
     justify-content: center;
+
+  }
+
+  .main_contain1 {
+    width: 65% !important;
+    height: 40% !important;
+  }
+
+
+  .main_contain2 {
+    left: 3%;
+  }
+
+  .lang-input {
+    width: 10rem;
+  }
+
+  .Summarize {
+    padding: .5rem 1rem;
+    position: relative;
+    left: 3.8rem;
+
+  }
+
+
+  .Summarize2 {
+    position: relative;
+    left: 2.5rem;
+    
+  }
+
+
+  .Summarize1 {
+    padding: .1rem 3rem;
+    position: relative;
+  right: -5rem;
+
   }
 }
 
 @media (max-width: 800px) { 
-  .main_contain1 {
-    width: 60% !important;
-    height: 40% !important;
-  }
+  
 
 }
 

@@ -1,5 +1,4 @@
 
-
 import { useState } from "react";
 import { FiSend } from "react-icons/fi";
 
@@ -7,15 +6,44 @@ function Main() {
    const [text, setText] = useState('');
    const [outputText, setOutputText] = useState("");
    const [language, setLanguage] = useState(""); // Track the selected language
+   const [isLoading, setIsLoading] = useState(false); // To track loading state
+
+   // Language mapping
+   const languageMap = {
+      es: "Spanish",
+      fr: "French",
+      tr: "Turkish",
+      pt: "Portuguese",
+      ru: "Russian",
+      en: "English",
+   };
+
+   // Automatically set language to English if no language is selected and there's text
+   const detectLanguage = (inputText) => {
+      if (!language && inputText) {
+         setLanguage("en"); // Set to English if no language is selected
+      }
+   };
 
    const handleSend = async () => {
+      // Before translating, detect the language if not selected
+      detectLanguage(text);
+
       if (!text || !language) {
          setOutputText("Please enter text and select a language.");
          return;
       }
 
+      if (language === "en") {
+         // If the selected language is English, just display the entered text
+         setOutputText(text);
+         return;
+      }
+
       try {
-         // Create a translator instance to translate from English ('en') to the selected language
+         setIsLoading(true); // Start loading
+
+         // Simulate the translation logic (replace with actual translation API call)
          const translator = await self.ai.translator.create({
             sourceLanguage: 'en', // Assuming English as the source language
             targetLanguage: language, // The selected target language
@@ -26,12 +54,13 @@ function Main() {
             },
          });
 
-         // Translate the text
          const translatedText = await translator.translate(text);
          setOutputText(translatedText); // Set the translated text to outputText
       } catch (error) {
          console.error("Translation failed:", error);
          setOutputText("Error translating text: " + error.message);
+      } finally {
+         setIsLoading(false); // Stop loading
       }
 
       setText(""); // Clear the input field
@@ -44,11 +73,16 @@ function Main() {
    return (
       <div className="container">
          <div className="main_container">
-            <div className="main_contain1 ">
-               {outputText}
+            <div className="main_contain1">
+               {isLoading ? <div>Loading...</div> : outputText}
                <div className="lang-detect">
                   <label>Language Detector</label>
-                  <input className="lang-input" type="text" value={language || "No language selected"} readOnly />
+                  <input
+                     className="lang-input"
+                     type="text"
+                     value={language ? languageMap[language] : "No language detected"}
+                     readOnly
+                  />
                </div>
             </div>
             <input
@@ -56,10 +90,11 @@ function Main() {
                className="main_contain2"
                value={text}
                onChange={(e) => setText(e.target.value)}
+               placeholder="Enter text here"
             />
             <div className="container-grid">
                <div>
-                  <button className="Summarize">Summarize</button>
+                  <button className="Summarize2">Summarize</button>
                </div>
                <div className="dropdown">
                   <select
@@ -70,13 +105,12 @@ function Main() {
                      onChange={handleLanguageChange} // Handle language change
                   >
                      <option value="" disabled>Select a language</option>
-                     <option value="English">English</option>
-                     <option value="spanish">Spanish</option>
-                     <option value="French">French</option>
-                     <option value="Turkish">Turkish</option>
-                     <option value="Portuguese ">Portuguese</option>
-                     <option value="Russian">Russian</option>
-                     
+                     <option value="en">English</option>
+                     <option value="es">Spanish</option>
+                     <option value="pt">Portuguese</option>
+                     <option value="fr">French</option>
+                     <option value="tr">Turkish</option>
+                     <option value="ru">Russian</option>
                   </select>
                </div>
                <div onClick={handleSend}>
@@ -92,7 +126,11 @@ export default Main;
 
 
 
+
+
+
 /*
+
 import { useState } from "react";
 import { FiSend } from "react-icons/fi";
 
@@ -100,87 +138,229 @@ function Main() {
    const [text, setText] = useState('');
    const [outputText, setOutputText] = useState("");
    const [language, setLanguage] = useState(""); // Track the selected language
+   const [isLoading, setIsLoading] = useState(false); // To track loading state
 
-   const handleSend = () => {
-    setOutputText(text); // Set the output text to be the input text
-    setText(""); // Clear the input field
-  };
+   // Language mapping
+   const languageMap = {
+      es: "Spanish",
+      fr: "French",
+      tr: "Turkish",
+      pt: "Portuguese",
+      ru: "Russian",
+      en: "English",
+   };
+
+   // Automatically set language to English if no language is selected and there's text
+   const detectLanguage = (inputText) => {
+      // If the input text is not empty and no language is selected, assume it's English
+      if (!language && inputText) {
+         setLanguage("en");
+      }
+   };
+
+   const handleSend = async () => {
+      // Before translating, detect the language if not selected
+      detectLanguage(text);
+
+      if (!text || !language) {
+         setOutputText("Please enter text and select a language.");
+         return;
+      }
+
+      try {
+         setIsLoading(true); // Start loading
+         const translator = await self.ai.translator.create({
+            sourceLanguage: 'en', // Assuming English as the source language
+            targetLanguage: language, // The selected target language
+            monitor(m) {
+               m.addEventListener('downloadprogress', (e) => {
+                  console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
+               });
+            },
+         });
+
+         const translatedText = await translator.translate(text);
+         setOutputText(translatedText); // Set the translated text to outputText
+      } catch (error) {
+         console.error("Translation failed:", error);
+         setOutputText("Error translating text: " + error.message);
+      } finally {
+         setIsLoading(false); // Stop loading
+      }
+
+      setText(""); // Clear the input field
+   };
 
    const handleLanguageChange = (e) => {
       setLanguage(e.target.value); // Update the selected language
-   }
+   };
 
-    return (
-        <div className="container">
-            hello
-           <div className="main_container">
-            <div className="main_contain1"> 
-              {outputText}
-              <div className="lang-detect">
-                <label>language-detector</label>
-                <input className="lang-input" type="text" readOnly />
-              </div>
+   return (
+      <div className="container">
+         <div className="main_container">
+            <div className="main_contain1">
+               {isLoading ? <div>Loading...</div> : outputText}
+               <div className="lang-detect">
+                  <label>Language Detector</label>
+                  <input
+                     className="lang-input"
+                     type="text"
+                     value={language ? languageMap[language] : "No language selected"}
+                     readOnly
+                  />
+               </div>
             </div>
-            <input 
-              type="text" 
-              className="main_contain2" 
-              value={text} 
-              onChange={(e) => setText(e.target.value)} 
+            <input
+               type="text"
+               className="main_contain2"
+               value={text}
+               onChange={(e) => setText(e.target.value)}
+               placeholder="Enter text here"
             />
             <div className="container-grid">
-              <div>
-                <button className="Summarize">Summarize</button>
-              </div>
-              <div className="dropdown">
-                <select 
-                  className="Summarize" 
-                  id="languages" 
-                  name="languages" 
-                  value={language} // Controlled component
-                  onChange={handleLanguageChange} // Handle language change
-                >
-                  <option value="" disabled>Select a language</option>
-                  <option value="en">English</option>
-                  <option value="es">Spanish</option>
-                  <option value="fr">French</option>
-                  <option value="de">German</option>
-                  <option value="it">Italian</option>
-                  <option value="pt">Portuguese</option>
-                  <option value="ru">Russian</option>
-                  <option value="zh">Chinese</option>
-                  <option value="ja">Japanese</option>
-                </select>
-              </div>
-              <div onClick={handleSend}>
-                <FiSend className="Summarize1" />
-              </div>
+               <div>
+                  <button className="Summarize">Summarize</button>
+               </div>
+               <div className="dropdown">
+                  <select
+                     className="Summarize"
+                     id="languages"
+                     name="languages"
+                     value={language} // Controlled component
+                     onChange={handleLanguageChange} // Handle language change
+                  >
+                     <option value="" disabled>Select a language</option>
+                     <option value="en">English</option>
+                     <option value="es">Spanish</option>
+                     <option value="pt">Portuguese</option>
+                     <option value="fr">French</option>
+                     <option value="tr">Turkish</option>
+                     <option value="ru">Russian</option>
+                  </select>
+               </div>
+               <div onClick={handleSend}>
+                  <FiSend className="Summarize1" />
+               </div>
             </div>
-           </div>
-        </div>
-    )
+         </div>
+      </div>
+   );
 }
 
-export default Main
+export default Main;
 
 
-/*
 
-"
- const translator = await self.ai.translator.create({
-  sourceLanguage: 'es',
-  targetLanguage: 'fr',
-  monitor(m) {
-    m.addEventListener('downloadprogress', (e) => {
-      console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
-    });
-  },
-});
 
-"
-"i want to add this to to translate langauge when i click the send button"
+
+import { useState } from "react";
+import { FiSend } from "react-icons/fi";
+
+function Main() {
+   const [text, setText] = useState('');
+   const [outputText, setOutputText] = useState("");
+   const [language, setLanguage] = useState(""); // Track the selected language
+   const [isLoading, setIsLoading] = useState(false); // To track loading state
+
+   // Language mapping
+   const languageMap = {
+      es: "Spanish",
+      fr: "French",
+      tr: "Turkish",
+      pt: "Portuguese",
+      ru: "Russian",
+      en: "English",
+   };
+
+   const handleSend = async () => {
+      if (!text || !language) {
+         setOutputText("Please enter text and select a language.");
+         return;
+      }
+
+      try {
+         setIsLoading(true); // Start loading
+         const translator = await self.ai.translator.create({
+            sourceLanguage: 'en', // Assuming English as the source language
+            targetLanguage: language, // The selected target language
+            monitor(m) {
+               m.addEventListener('downloadprogress', (e) => {
+                  console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
+               });
+            },
+         });
+
+         const translatedText = await translator.translate(text);
+         setOutputText(translatedText); // Set the translated text to outputText
+      } catch (error) {
+         console.error("Translation failed:", error);
+         setOutputText("Error translating text: " + error.message);
+      } finally {
+         setIsLoading(false); // Stop loading
+      }
+
+      setText(""); // Clear the input field
+   };
+
+   const handleLanguageChange = (e) => {
+      setLanguage(e.target.value); // Update the selected language
+   };
+
+   return (
+      <div className="container">
+         <div className="main_container">
+            <div className="main_contain1">
+               {isLoading ? <div>Loading...</div> : outputText}
+               <div className="lang-detect">
+                  <label>Language Detector</label>
+                  <input
+                     className="lang-input"
+                     type="text"
+                     value={language ? languageMap[language] : "No language selected"}
+                     readOnly
+                  />
+               </div>
+            </div>
+            <input
+               type="text"
+               className="main_contain2"
+               value={text}
+               onChange={(e) => setText(e.target.value)}
+               placeholder="Enter text here"
+            />
+            <div className="container-grid">
+               <div>
+                  <button className="Summarize">Summarize</button>
+               </div>
+               <div className="dropdown">
+                  <select
+                     className="Summarize"
+                     id="languages"
+                     name="languages"
+                     value={language} // Controlled component
+                     onChange={handleLanguageChange} // Handle language change
+                  >
+                     <option value="" disabled>Select a language</option>
+                     <option value="es">Spanish</option>
+                     <option value="pt">Portuguese</option>
+                     <option value="fr">French</option>
+                     <option value="tr">Turkish</option>
+                     <option value="ru">Russian</option>
+                     <option value="en">English</option>
+                  </select>
+               </div>
+               <div onClick={handleSend}>
+                  <FiSend className="Summarize1" />
+               </div>
+            </div>
+         </div>
+      </div>
+   );
+}
+
+export default Main;
+
+
 
 
 */
-
-
-

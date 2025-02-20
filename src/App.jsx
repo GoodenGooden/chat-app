@@ -1,5 +1,5 @@
 
-import Main from '../components/main'
+import Main from './components/main'
 
 
 function App() {

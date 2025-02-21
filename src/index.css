@@ -18,7 +18,7 @@
   /* background-color: rgba(7, 55, 63, 1);  
    background-image: linear-gradient();    
   background-color: gray ;     */
-  background-image: radial-gradient(whitesmoke, rgba(105, 105, 236, 0.466), blue);
+  background-image: radial-gradient(whitesmoke,  blue);
    background-size: cover;
    height: 100vh;
    overflow: hidden;

@@ -16,8 +16,9 @@
 
 .container {
   /* background-color: rgba(7, 55, 63, 1);  
-   background-image: linear-gradient();    */
-  background-color: gray ;   
+   background-image: linear-gradient();    
+  background-color: gray ;     */
+  background-image: radial-gradient(whitesmoke, rgba(105, 105, 236, 0.466), blue);
    background-size: cover;
    height: 100vh;
    overflow: hidden;
@@ -31,13 +32,23 @@
     position: relative;
     top: 0;
    border-radius: 1rem;
-   border-color: rgba(102, 101, 101, 0.726);
+   border-color: rgba(0, 0, 255, 0.233);
     border-width: thick;
     border-style: solid;
    /*box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);   */
   
    
    
+ }
+
+ .text {
+  position: relative;
+  margin: auto;
+  left: 30%;
+ }
+
+ .lang-text {
+  color: blueviolet;
  }
 
  .main_contain1 {
@@ -48,10 +59,11 @@
   position: relative;
  top: 10%;
  border-radius: 1rem;
- border-color: rgba(102, 101, 101, 0.726);
+ border-color: rgba(0, 0, 255, 0.233);
   border-width: thick;
   border-style: solid;
-  background-color: gray;
+  background-color: whitesmoke; 
+ color: blueviolet;
   display: grid;
  }
 
@@ -65,11 +77,12 @@
   position: relative;
  top: 20%;
  left: 5%;
- border-color: rgba(102, 101, 101, 0.726);
+ border-color: rgba(0, 0, 255, 0.233);
   border-width: thick;
   border-style: solid;
   outline: none;
   border-radius: 2rem;
+  color: blueviolet;
  }
 
 .lang-detect {
@@ -86,7 +99,8 @@
   width: 12rem;
   outline: none;
   border-radius: 2rem;
-
+  border-color: rgba(0, 0, 255, 0.233);
+  color: blueviolet;
 }
 
 .container-grid {
@@ -104,27 +118,27 @@ justify-content: space-around;
   padding: .5rem 4rem;
   border-radius: 2rem;
   outline: none;
-  
+  border-color: rgba(0, 0, 255, 0.233);
+  color: blueviolet;
 }
 
 .Summarize2 {
   padding: .5rem 4rem;
   border-radius: 2rem;
   outline: none;
-  
+  border-color: rgba(0, 0, 255, 0.233);
+  color: blueviolet;
 }
 
 
 .Summarize1 {
   padding: .1rem 4rem;
   background-color: azure;
-  fill: black;
+  fill: blueviolet;
   font-size: 1.5rem;
   border-radius: 2rem;
+  border-color: rgba(0, 0, 255, 0.233);;
 }
-
-
-
 
 
 

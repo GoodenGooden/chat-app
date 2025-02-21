@@ -83,7 +83,6 @@ function Main() {
    return (
       <div className="container">
          <div className="main_container">
-            <h1 className="text"> AI Powered Text Processor </h1>
             <div className="main_contain1">
                {isLoading ? <div>Loading...</div> : outputText}
                <div className="lang-detect">
